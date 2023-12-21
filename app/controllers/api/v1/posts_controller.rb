@@ -10,6 +10,10 @@ module Api
         render json: Post.search_by_keyword(params[:keyword])
       end
 
+      def show
+        render json: { post: Post.find(params[:id]) }
+      end
+
       def create
         tags = params.dig(:tags)
         category_id = params.dig(:category)
