@@ -11,7 +11,11 @@ module Api
       end
 
       def show
-        render json: { post: Post.find(params[:id]) }
+        post = Post.includes(:post_tags, :tags).where(id: params[:id]).first
+        render json: {
+          post: post,
+          tags: post.tags
+        }
       end
 
       def create
