@@ -11,7 +11,7 @@ module Api
       end
 
       def show
-        post = Post.includes(:post_tags, :tags).where(id: params[:id]).first
+        post = Post.eager_load(:tags).where(id: params[:id]).first
         render json: {
           post: post,
           tags: post.tags

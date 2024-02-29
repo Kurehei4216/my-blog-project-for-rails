@@ -2,8 +2,8 @@ module Api
   module V1
     class TagsController < ApplicationController
       def index
-        @tag = Tag.includes(:posts)
-        render json: @tag
+        tags = Tag.eager_load(:posts)
+        render json: tags
       end
     end
   end
