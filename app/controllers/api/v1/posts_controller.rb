@@ -41,7 +41,7 @@ module Api
 
       def update
         tags, post = params.values_at(:tags, :post)
-        registed_tags = Tag.joins(:post_tags).where(post_tags: { post_id: post[:id] }).index_by(&:name)
+        registed_tags = Tag.registed_post(post[:id]).index_by(&:name)
 
         ActiveRecord::Base.transaction do
           @post = Post.find(post[:id])
@@ -53,7 +53,6 @@ module Api
             PostTag.create!(post_id: @post.id, tag_id: tag.id)
           end
         end
-
         render json: { message: '記事の更新に成功しました' }
 
         rescue ActiveRecord::RecordInvalid => e
