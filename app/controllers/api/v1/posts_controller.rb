@@ -32,10 +32,32 @@ module Api
           end
         end
 
-        render json: { message: '投稿成功しました' }
+        render json: { message: '記事の投稿に成功しました' }
 
         rescue ActiveRecord::RecordInvalid => e
           render json: { message: '投稿に失敗しました', error: e.message }
+
+      end
+
+      def update
+        tags, post = params.values_at(:tags, :post)
+        registed_tags = Tag.joins(:post_tags).where(post_tags: { post_id: post[:id] }).index_by(&:name)
+
+        ActiveRecord::Base.transaction do
+          @post = Post.find(post[:id])
+          @post.update!(update_params)
+          tags&.each do |tag|
+            next if registed_tags[tag[:name]].present?
+
+            tag = Tag.find_or_create_by(name: tag[:name])
+            PostTag.create!(post_id: @post.id, tag_id: tag.id)
+          end
+        end
+
+        render json: { message: '記事の更新に成功しました' }
+
+        rescue ActiveRecord::RecordInvalid => e
+          render json: { message: '更新に失敗しました', error: e.message }
 
       end
 
@@ -47,6 +69,10 @@ module Api
 
       def post_params
         params.require(:post).permit(:title, :content)
+      end
+
+      def update_params
+        params.require(:post).permit(:id, :title, :content, :is_publish)
       end
     end
   end
