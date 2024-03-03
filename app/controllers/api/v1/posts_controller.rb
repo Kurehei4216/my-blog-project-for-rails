@@ -36,7 +36,6 @@ module Api
 
         rescue ActiveRecord::RecordInvalid => e
           render json: { message: '投稿に失敗しました', error: e.message }
-
       end
 
       def update
@@ -57,7 +56,17 @@ module Api
 
         rescue ActiveRecord::RecordInvalid => e
           render json: { message: '更新に失敗しました', error: e.message }
+      end
 
+      def delete
+        post_params = params.dig(:post)
+        post = Post.find(post[:id])
+        post.update!(is_deleted: true)
+
+        render json: { message: '記事の削除に成功しました' }
+
+        rescue ActiveRecord::RecordInvalid => e
+          render json: { message: '削除に失敗しました', error: e.message }
       end
 
       private
