@@ -59,8 +59,8 @@ module Api
       end
 
       def delete
-        post_params = params.dig(:post)
-        post = Post.find(post[:id])
+        id = params.dig(:id)
+        post = Post.find(id)
         post.update!(is_deleted: true)
 
         render json: { message: '記事の削除に成功しました' }
