@@ -24,12 +24,9 @@ module Api
 
         ActiveRecord::Base.transaction do
           post = Post.create!(post_params)
-          tags.each do |tag_name|
-            tag = Tag.find_or_create_by(name: tag_name)
-            PostTag.create!(post_id: post.id, tag_id: tag.id)
-          category = Category.find(category_id)
-          PostCategory.create!(post_id: post.id, category_id: category.id)
-          end
+          Tag.create_tags(tags, post.id) if tags.present?
+          category = Category.find_by(id: category_id)
+          PostCategory.create!(post_id: post.id, category_id: category.id) if category.present?
         end
 
         render json: { message: '記事の投稿に成功しました' }
