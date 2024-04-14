@@ -1,24 +1,8 @@
-# README
+# クレヘイブログ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 概要
+クレヘイブログという技術ブログのAPIになる
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 言語・フレームワーク
+- Ruby(3.0.6)
+- Rails(6.0)
