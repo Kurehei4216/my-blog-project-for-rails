@@ -11,6 +11,7 @@ class Tag < ApplicationRecord
   # @param [Array<Int>] post_id
   # @return [void]
   def self.create_tags(tags, post_id)
+    return if tags.blank?
     tags.each do |tag|
       tag = Tag.find_or_create_by(name: tag)
       PostTag.create!(post_id: post_id, tag_id: tag.id)
