@@ -14,7 +14,7 @@ module Api
         post = Post.eager_load(:tags).where(id: params[:id]).first
         render json: {
           post: post,
-          tags: post.tags
+          tags: post&.tags
         }
       end
 
