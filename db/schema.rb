@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_08_182931) do
+ActiveRecord::Schema.define(version: 2024_06_08_074719) do
 
   create_table "admins", force: :cascade do |t|
     t.string "username", null: false
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2023_12_08_182931) do
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "thumbnail_url"
   end
 
   create_table "tags", force: :cascade do |t|

@@ -6,6 +6,7 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.boolean :is_publish, null: false, default: false
       t.datetime :published_at
       t.boolean :is_deleted, null: false, default: false
+      
 
       t.timestamps
     end

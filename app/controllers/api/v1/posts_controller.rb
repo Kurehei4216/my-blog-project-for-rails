@@ -73,11 +73,12 @@ module Api
       end
 
       def post_params
-        params.require(:post).permit(:title, :content)
+        params.require(:post).permit(:title, :content, :thumbnail_url)
       end
 
       def update_params
-        params.require(:post).permit(:id, :title, :content, :is_publish)
+        raise params.inspect
+        params.require(:post).permit(:id, :title, :content, :is_publish, :thumbnail_url)
       end
     end
   end
