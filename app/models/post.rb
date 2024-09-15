@@ -4,7 +4,6 @@ class Post < ApplicationRecord
   has_many :post_categories, dependent: :destroy
   has_many :categories, through: :post_categories
 
-
   scope :is_not_deleted, -> { where(is_deleted: false) }
 
   scope :search_by_keyword, ->(search_word) {
