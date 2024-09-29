@@ -25,7 +25,7 @@ module Api
         ActiveRecord::Base.transaction do
           post = Post.create!(post_params)
           Tag.create_tags(tags, post.id) if tags.present?
-          category = Category.find(id: category_id)
+          category = Category.find_by(id: category_id)
           PostCategory.create!(post_id: post.id, category_id: category.id) if category.present?
         end
 
@@ -40,7 +40,7 @@ module Api
         registed_tags = Tag.registed_post(post[:id]).index_by(&:name)
 
         ActiveRecord::Base.transaction do
-          @post = Post.find(post[:id]).update!(update_params)
+          @post = Post.find(post[:id])
           @post.update!(update_params)
 
           return if tags.blank?

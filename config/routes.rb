@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       delete 'posts/:id/delete', to: 'posts#delete'
 
       resources :tags
+      get 'tags/:id/posts', to: 'tags#posts'
+
       resources :categories
       get 'categories/:id/posts', to: 'categories#posts'
 
